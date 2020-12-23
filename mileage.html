@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>웹개발기초 기말 프로젝트</title>
+</head>
+<body>
+    <div style="width: 40%; border-width: 20px; padding: 10% 12% 10% 12%; border-style: solid; border-color: lightskyblue;">
+        <div id="title">
+            <h1 style="font-size: 40pt;">마일리지 관리 프로그램</h1>
+        </div>
+        <div>
+            <div>
+            금액 : <input id="amount"readonly style="background-color: white; font-size: 20pt;"/> <button  onclick="generateAmount() ">금액확인</button>
+          </div> <!-- readonly사용 -->
+        </div>
+        <div>
+            휴대폰번호 : <input id="pn_num" readonly style="background-color: white; font-size: 20pt; color:black"/> <button onclick="save()">적립</button>
+
+    <div id="pn_numButton">
+        <button class="pn_numButton" style="background-color: lightsteelblue; font-size: 30pt; ">1</button>
+        <button class="pn_numButton" style="background-color: gray;font-size: 30pt;">2</button>
+        <button class="pn_numButton" style="background-color: khaki;font-size: 30pt;">3</button>
+        <br> 
+        <button class="pn_numButton" style="background-color: lightsteelblue;font-size: 30pt;">4</button>
+        <button class="pn_numButton" style="background-color: gray;font-size: 30pt;">5</button>
+        <button class="pn_numButton" style="background-color: khaki;font-size: 30pt;">6</button>
+        <br>
+        <button class="pn_numButton" style="background-color: lightsteelblue;font-size: 30pt;">7</button>
+        <button class="pn_numButton" style="background-color: gray;font-size: 30pt;">8</button>
+        <button class="pn_numButton" style="background-color: khaki;font-size: 30pt;">9</button>
+        <br> 
+        <button class="pn_numButton" style="background-color: orange;font-size: 30pt;">0</button>
+        <button class="backspace" style="background-color: red;font-size: 30pt;">X</button>
+        <button class="clear" style="background-color: mediumpurple;font-size: 30pt;">C</button>
+    </div>
+  </div>
+</body>
+</html>
+
+<script>
+    var amount = document.getElementById("amount") // 금액 텍스트
+    var amount_value // 금액값
+    var pn_numButton = document.getElementById("pn_numButton") // 휴대폰 번호 생성
+    var pn_num = document.getElementById("pn_num") //휴대폰 번호
+
+    pn_numButton.addEventListener("click", (e) => { // 휴대폰 번호 버튼 클릭 시 이벤트
+        var targetClass = e.target.classList[0]
+        if(targetClass == "pn_numButton"){ // 휴대폰 번호에 - 붙이기
+            if(pn_num.value.length == 3 || pn_num.value.length == 8){
+                pn_num.value+="-"
+            }
+            pn_num.value += e.target.innerHTML
+        }
+        else if(targetClass == "backspace"){ // X버튼 클릭시 뒷자리부터 하나씩 제거
+            if(pn_num.value.length > 0){
+                pn_num.value = pn_num.value.substring(0,pn_num.value.length-1)
+            }
+        }
+        else if(targetClass == "clear"){ // 휴대폰번호 다 지우기
+            pn_num.value = ""
+        }
+        e.stopPropagation()
+    })
+
+    function generateAmount(){ // 금액 1000단위로 나타내기
+        amount_value = parseInt(((Math.floor(Math.random()*(100000-1000)) + 1000)/1000),10)*1000
+        amount.value = amoutFormatting(amount_value)
+    }
+    function amoutFormatting(amount){ // 금액에 , 붙이기
+        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+</script>
